@@ -12,7 +12,7 @@ const Footer = () => {
   return (
     <footer className="appFooter">
       <div className="appFooter-icons">
-        <PhoneOutlined style={{ fontSize: '50px' }} />
+        <PhoneOutlined style={{ fontSize: '50px', color: '#2ac420' }} />
         <UserOutlined style={{ fontSize: '50px' }} />
         <PoweroffOutlined style={{ fontSize: '70px' }} />
         <MessageOutlined style={{ fontSize: '50px' }} />
