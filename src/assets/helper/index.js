@@ -22,8 +22,8 @@ export const formatDuration = (timeInSeconds) => {
   const seconds = timeInSeconds % 60;
 
   if (minutes > 0) {
-    return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`;
+    return `${minutes} ${minutes === 1 ? 'Minute' : 'Minutes'}`;
   }
 
-  return `${seconds} ${seconds === 1 ? 'second' : 'seconds'}`;
+  return `${seconds} ${seconds === 1 ? 'Second' : 'Seconds'}`;
 };

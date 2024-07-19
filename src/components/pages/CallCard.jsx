@@ -13,7 +13,7 @@ const CallCard = ({ call, onAction, actionLabel, isActive, onClick }) => {
 
   return (
     <Card
-      title={`Caller's Number: ${call.from}`}
+      title={`Call From: ${call.from}`}
       onClick={onClick}
       style={{
         marginBottom: 16,
@@ -21,19 +21,20 @@ const CallCard = ({ call, onAction, actionLabel, isActive, onClick }) => {
         backgroundColor: isActive ? '#f0f0f0' : 'inherit',
       }}
     >
-      <p>
-        <strong>Call Type:</strong> {call.call_type}
-      </p>
-      <p>
-        <strong>Created At:</strong> {formatDateTime(call.created_at).join(' ')}
-      </p>
-      <p>
-        <strong>{call.call_type}</strong>
-      </p>
+      <strong>{call.direction}</strong>
+      <p>{formatDateTime(call.created_at).join(' ')}</p>
       {isActive && (
         <>
           <p>
-            <strong>Duration:</strong> {formatDuration(call.duration)}
+            <strong>Recieved By: </strong>
+            {call.to}
+          </p>
+          <p>
+            <strong>{call.call_type}</strong>
+          </p>
+          <p>
+            <strong>Call Duration: </strong>
+            {formatDuration(call.duration)}
           </p>
           <Button type="primary" onClick={handleAction}>
             {actionLabel}
