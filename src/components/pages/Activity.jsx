@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { Timeline, Button, message } from 'antd';
 import { formatDateTime, formatDuration } from '../../assets/helper';
 import { updateCall } from '../../assets/api';
+import CallCard from './CallCard';
 
-const Activity = ({ activityItems, onArchiveCall }) => {
+const Activity = ({ activeTab, activityItems, onArchiveCall }) => {
   if (!activityItems || activityItems.length === 0) {
     return <p>No activity items to display</p>;
   }
 
   const [items, setItems] = useState(activityItems);
+  const [expandedCallId, setExpandedCallId] = useState(null);
 
   const handleArchiveCall = async (id) => {
     try {
@@ -25,27 +27,26 @@ const Activity = ({ activityItems, onArchiveCall }) => {
     }
   };
 
+  const toggleCard = (id) => {
+    if (expandedCallId === id) {
+      setExpandedCallId(null);
+    } else {
+      setExpandedCallId(id);
+    }
+  };
+
   return (
     <div>
       <Timeline>
         {activityItems.map((item) => (
           <Timeline.Item key={item.id}>
-            <p>
-              <strong>Caller's Number:</strong> {item.from}
-            </p>
-            <p>
-              <strong>Call Type:</strong> {item.call_type}
-            </p>
-            <p>
-              <strong>Created At:</strong>{' '}
-              {formatDateTime(item.created_at).join(' ')}
-            </p>
-            <p>
-              <strong>Duration:</strong> {formatDuration(item.duration)}
-            </p>
-            <Button type="primary" onClick={() => handleArchiveCall(item.id)}>
-              Archive
-            </Button>
+            <CallCard
+              call={item}
+              onAction={handleArchiveCall}
+              actionLabel="Archive"
+              isActive={expandedCallId === item.id}
+              onClick={() => toggleCard(item.id)}
+            />
           </Timeline.Item>
         ))}
       </Timeline>
