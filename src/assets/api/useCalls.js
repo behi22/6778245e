@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getCalls, updateCall, resetCalls } from '../api';
+import { getCalls, updateCall } from '../api';
 
 const useCalls = () => {
   const [calls, setCalls] = useState([]);
@@ -61,25 +61,12 @@ const useCalls = () => {
     }
   };
 
-  const resetAllCalls = async () => {
-    setLoading(true);
-    try {
-      await resetCalls();
-      fetchCalls();
-    } catch (error) {
-      console.error('Error resetting calls:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return {
     calls,
     loading,
     fetchCalls,
     archiveAll,
     unarchiveAll,
-    resetCalls: resetAllCalls,
   };
 };
 

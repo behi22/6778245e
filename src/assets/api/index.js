@@ -32,9 +32,3 @@ export const updateCall = async ({ id, isArchived }) => {
     body: JSON.stringify({ is_archived: isArchived }),
   });
 };
-
-export const resetCalls = async () => {
-  return apiRequest(`${BASE_URL}/reset`, {
-    method: 'PATCH',
-  });
-};

@@ -10,8 +10,7 @@ import Footer from './components/footer';
 import useCalls from './assets/api/useCalls';
 
 const App = () => {
-  const { calls, fetchCalls, archiveAll, unarchiveAll, resetCalls, loading } =
-    useCalls();
+  const { calls, fetchCalls, archiveAll, unarchiveAll, loading } = useCalls();
   const [activeTab, setActiveTab] = useState('1');
 
   useEffect(() => {
@@ -25,22 +24,32 @@ const App = () => {
   const handleArchiveAll = async () => {
     if (activeTab === '1') {
       await archiveAll();
+      fetchCalls();
     }
   };
 
   const handleUnarchiveAll = async () => {
     if (activeTab === '2') {
       await unarchiveAll();
+      fetchCalls();
     }
   };
 
-  const handleResetCalls = async () => {
-    await resetCalls();
-    fetchCalls();
+  const handleArchiveCall = async (id) => {
+    try {
+      await fetchCalls();
+    } catch (error) {
+      console.error('Error archiving call:', error);
+    }
   };
 
-  const activityItems = calls.filter((call) => !call.is_archived);
-  const archiveItems = calls.filter((call) => call.is_archived);
+  const handleUnarchiveCall = async (id) => {
+    try {
+      await fetchCalls();
+    } catch (error) {
+      console.error('Error unarchiving call:', error);
+    }
+  };
 
   return (
     <div className="container">
@@ -53,12 +62,11 @@ const App = () => {
       />
       <Content
         activeTab={activeTab}
-        activityItems={activityItems}
-        archiveItems={archiveItems}
+        activityItems={calls.filter((call) => !call.is_archived)}
+        archiveItems={calls.filter((call) => call.is_archived)}
         loading={loading}
-        onResetCalls={handleResetCalls}
-        onArchiveAll={handleArchiveAll}
-        onUnarchiveAll={handleUnarchiveAll}
+        onArchiveCall={handleArchiveCall}
+        onUnarchiveCall={handleUnarchiveCall}
       />
       <Footer />
     </div>
