@@ -7,19 +7,76 @@
   top: 0;
   right: 0;
   bottom: 0;
+  font-size: 20px;
+  text-align: center;
 }
 
 #app .container {
   width: 376px;
   height: 666px;
   z-index: 100;
-
   background: white;
   border-radius: 3px;
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, .9);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
 }
 
-#app .container-view {
+#app .header {
+  height: 40px;
+  margin: 0 auto;
+  padding: 20px 0;
+  text-align: center;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+#app .content {
+  flex: 1;
+  overflow-y: auto;
   padding: 20px;
 }
 
+#app .appFooter {
+  height: 80px;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+#app .appFooter .appFooter-icons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+#app .appNav {
+  margin-top: 0px;
+}
+
+#app .ant-tabs-nav {
+  margin-bottom: 0;
+}
+
+#app .ant-tabs-nav-wrap {
+  justify-content: center;
+}
+
+#app .ant-tabs-tab {
+  font-size: 20px;
+}
+
+#app .changeButtonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+#app .ant-btn-primary {
+  background-color: #2ac420;
+  border-color: #2ac420;
+  color: #ffffff;
+}
