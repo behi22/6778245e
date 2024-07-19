@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../css/content.css';
 import Activity from '../pages/Activity';
 import Archive from '../pages/Archive';
 

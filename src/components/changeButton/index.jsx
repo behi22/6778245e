@@ -1,12 +1,27 @@
 import React from 'react';
 import { Button } from 'antd';
+import '../../css/app.css';
 
 const ChangeButton = ({ activeTab, onArchiveAll, onUnarchiveAll }) => {
   return (
-    <div>
-      {activeTab === '1' && <Button onClick={onArchiveAll}>Archive All</Button>}
+    <div className="changeButtonContainer">
+      {activeTab === '1' && (
+        <Button
+          type="primary"
+          style={{ backgroundColor: '#2AC420', borderColor: '#2AC420' }}
+          onClick={onArchiveAll}
+        >
+          Archive All
+        </Button>
+      )}
       {activeTab === '2' && (
-        <Button onClick={onUnarchiveAll}>Unarchive All</Button>
+        <Button
+          type="primary"
+          style={{ backgroundColor: '#2AC420', borderColor: '#2AC420' }}
+          onClick={onUnarchiveAll}
+        >
+          Unarchive All
+        </Button>
       )}
     </div>
   );

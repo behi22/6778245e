@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 
+import './css/app.css';
+
 import Header from './components/header';
 import Nav from './components/nav';
 import Content from './components/content';

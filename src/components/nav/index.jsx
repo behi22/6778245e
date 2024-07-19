@@ -1,5 +1,6 @@
 import React from 'react';
 import { Tabs } from 'antd';
+import '../../css/app.css';
 
 const Nav = ({ activeTab, onChange }) => {
   const tabItems = [
@@ -8,11 +9,13 @@ const Nav = ({ activeTab, onChange }) => {
   ];
 
   return (
-    <Tabs activeKey={activeTab} onChange={onChange}>
-      {tabItems.map((item) => (
-        <Tabs.TabPane key={item.key} tab={item.tab} />
-      ))}
-    </Tabs>
+    <div className="appNav">
+      <Tabs activeKey={activeTab} onChange={onChange} size={'large'}>
+        {tabItems.map((item) => (
+          <Tabs.TabPane key={item.key} tab={item.tab} />
+        ))}
+      </Tabs>
+    </div>
   );
 };
 

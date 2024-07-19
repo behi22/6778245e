@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getCalls, updateCall } from '../api';
+import { message } from 'antd';
 
 const useCalls = () => {
   const [calls, setCalls] = useState([]);
@@ -34,8 +35,10 @@ const useCalls = () => {
         })
       );
       setCalls(updatedCalls);
+      message.success('All calls archived successfully');
     } catch (error) {
       console.error('Error archiving calls:', error);
+      message.error('Failed to archive all calls');
     } finally {
       setLoading(false);
     }
@@ -54,8 +57,10 @@ const useCalls = () => {
         })
       );
       setCalls(updatedCalls);
+      message.success('All calls unarchived successfully');
     } catch (error) {
       console.error('Error unarchiving calls:', error);
+      message.error('Failed to unarchive all calls');
     } finally {
       setLoading(false);
     }
