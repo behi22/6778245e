@@ -6,7 +6,13 @@ const apiRequest = async (url, options = {}) => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    return response.json();
+
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
+      return response.json();
+    } else {
+      return response.text();
+    }
   } catch (error) {
     console.error('API request error:', error);
     throw error;
@@ -15,10 +21,6 @@ const apiRequest = async (url, options = {}) => {
 
 export const getCalls = async () => {
   return apiRequest(`${BASE_URL}/activities`);
-};
-
-export const getCallDetail = async ({ id }) => {
-  return apiRequest(`${BASE_URL}/activities/${id}`);
 };
 
 export const updateCall = async ({ id, isArchived }) => {

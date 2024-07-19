@@ -1,64 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import Header from './components/header';
 import Nav from './components/nav';
-import NavContent from './components/navContent';
+import Content from './components/content';
 import ChangeButton from './components/changeButton';
-import Body from './components/body';
 import Footer from './components/footer';
 
+import useCalls from './assets/api/useCalls';
+
 const App = () => {
-  /* temp helpful stuff */
-  const [activeTab, setActiveTab] = useState('1'); // '1' for Activity, '2' for Archive
-  const [activityItems, setActivityItems] = useState([
-    { id: 1, text: 'Activity Item 1' },
-    { id: 2, text: 'Activity Item 2' },
-  ]);
-  const [archiveItems, setArchiveItems] = useState([
-    { id: 101, text: 'Archived Item 1' },
-    { id: 102, text: 'Archived Item 2' },
-  ]);
+  const { calls, fetchCalls, archiveAll, unarchiveAll, resetCalls, loading } =
+    useCalls();
+  const [activeTab, setActiveTab] = useState('1');
+
+  useEffect(() => {
+    fetchCalls();
+  }, []);
 
   const handleTabChange = (key) => {
     setActiveTab(key);
   };
 
-  const handleArchiveAll = () => {
+  const handleArchiveAll = async () => {
     if (activeTab === '1') {
-      // Archive all activity items
-      setArchiveItems([...archiveItems, ...activityItems]);
-      setActivityItems([]);
+      await archiveAll();
     }
   };
 
-  const handleUnarchiveAll = () => {
+  const handleUnarchiveAll = async () => {
     if (activeTab === '2') {
-      // Unarchive all archived items
-      setActivityItems([...activityItems, ...archiveItems]);
-      setArchiveItems([]);
+      await unarchiveAll();
     }
   };
-  /* */
+
+  const handleResetCalls = async () => {
+    await resetCalls();
+    fetchCalls();
+  };
+
+  const activityItems = calls.filter((call) => !call.is_archived);
+  const archiveItems = calls.filter((call) => call.is_archived);
 
   return (
     <div className="container">
       <Header />
-      <Nav 
-        activeTab={activeTab}
-        onChange={handleTabChange} 
-      />
-      <ChangeButton 
+      <Nav activeTab={activeTab} onChange={handleTabChange} />
+      <ChangeButton
         activeTab={activeTab}
         onArchiveAll={handleArchiveAll}
-        onUnarchiveAll={handleUnarchiveAll} 
+        onUnarchiveAll={handleUnarchiveAll}
       />
-      <NavContent 
+      <Content
         activeTab={activeTab}
         activityItems={activityItems}
-        archiveItems={archiveItems} 
+        archiveItems={archiveItems}
+        loading={loading}
+        onResetCalls={handleResetCalls}
+        onArchiveAll={handleArchiveAll}
+        onUnarchiveAll={handleUnarchiveAll}
       />
-      <Body />
       <Footer />
     </div>
   );

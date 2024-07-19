@@ -2,10 +2,16 @@ import React from 'react';
 import { Tabs } from 'antd';
 
 const Nav = ({ activeTab, onChange }) => {
+  const tabItems = [
+    { key: '1', tab: 'Activity' },
+    { key: '2', tab: 'Archive' },
+  ];
+
   return (
     <Tabs activeKey={activeTab} onChange={onChange}>
-      <Tabs.TabPane tab="Activity" key="1" />
-      <Tabs.TabPane tab="Archive" key="2" />
+      {tabItems.map((item) => (
+        <Tabs.TabPane key={item.key} tab={item.tab} />
+      ))}
     </Tabs>
   );
 };
